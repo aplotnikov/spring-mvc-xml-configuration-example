@@ -5,8 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import org.home.spring.mvc.domain.User;
 import org.home.spring.mvc.mvc.form.bean.UserFormBean;
 import org.home.spring.mvc.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,20 +12,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.List;
+
+import static org.home.spring.mvc.domain.User.Builder.anUser;
 
 @Controller
 @RequestMapping("/adduser.form")
 public class UserFormController {
+    private final static Log LOG = LogFactory.getLog(UserFormController.class);
 
-    private static Log log = LogFactory.getLog(UserFormController.class);
+    private final UserService userService;
 
-    private UserService userService;
+    @Inject
+    public UserFormController(UserService userService) {
+        this.userService = userService;
+    }
 
     @ModelAttribute("userFormBean")
     public UserFormBean getUserFormBean() {
-
         return new UserFormBean();
     }
 
@@ -39,31 +43,25 @@ public class UserFormController {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView processSubmit(@Valid UserFormBean userFormBean, Errors errors) {
         if (errors.hasErrors()) {
+            LOG.info("Adduserform validation failed.");
 
-            log.info("Adduserform validation failed.");
             return new ModelAndView("adduserform");
-        } else {
-
-            List<User> userList;
-            User user = new User();
-            user.setFirstName(userFormBean.getFirstName());
-            user.setLastName(userFormBean.getLastName());
-
-            log.info("Adding new " + user + "");
-
-            userService.saveUser(user);
-            userList = userService.loadAllUsers();
-
-            ModelAndView mav = new ModelAndView("userlistview");
-            mav.addObject("userList", userList);
-
-            return mav;
         }
-    }
 
-    @Autowired
-    @Required
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+        User user = anUser()
+                .withFirstName(userFormBean.getFirstName())
+                .withLastName(userFormBean.getLastName())
+                .create();
+
+        LOG.info("Adding new " + user);
+
+        userService.saveUser(user);
+
+        List<User> userList = userService.loadAllUsers();
+
+        ModelAndView modelAndView = new ModelAndView("userlistview");
+        modelAndView.addObject("userList", userList);
+
+        return modelAndView;
     }
 }

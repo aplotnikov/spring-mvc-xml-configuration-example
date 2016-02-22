@@ -19,7 +19,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="userDao" class="org.home.spring.mvc.dao.HsqlUserDao">
+    <bean id="userDao" class="org.home.spring.mvc.dao.user.HsqlUserDao">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
