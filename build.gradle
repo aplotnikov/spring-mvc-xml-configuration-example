@@ -52,6 +52,6 @@ buildscript {
 
 gretty {
     port = 8080
-    contextPath = 'root'
+    contextPath = 'mvc'
     servletContainer = 'jetty9'
 }

@@ -30,7 +30,7 @@
 
 <hr/>
 
-<a href="http://localhost:8080/lab-9-mvc/addcountry.form"><spring:message code="form.addcountry.name"/></a>
+<a href="http://localhost:8080/mvc/addcountry.form"><spring:message code="form.addcountry.name"/></a>
 
 </body>
 </html>

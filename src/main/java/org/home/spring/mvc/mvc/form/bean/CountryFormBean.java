@@ -8,9 +8,6 @@ public class CountryFormBean {
     @Size(min = 2, max = 30)
     private String name;
 
-    public CountryFormBean() {
-    }
-
     public String getName() {
         return name;
     }
@@ -21,8 +18,6 @@ public class CountryFormBean {
 
     @Override
     public String toString() {
-        return "CountryFormBean{" +
-                "name='" + name + '\'' +
-                '}';
+        return "CountryFormBean { name='" + name + '\'' + '}';
     }
 }

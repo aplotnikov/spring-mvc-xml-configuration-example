@@ -5,60 +5,62 @@ import org.apache.commons.logging.LogFactory;
 import org.home.spring.mvc.domain.Country;
 import org.home.spring.mvc.mvc.form.bean.CountryFormBean;
 import org.home.spring.mvc.service.CountryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @RequestMapping("/addcountry.form")
 public class CountryFromController {
-    private static Log log = LogFactory.getLog(CountryFromController.class);
+    private final static Log LOG = LogFactory.getLog(CountryFromController.class);
 
-    private CountryService countryService;
+    private final CountryService countryService;
+
+    @Inject
+    public CountryFromController(CountryService countryService) {
+        this.countryService = countryService;
+    }
 
     @ModelAttribute("countryFormBean")
     public CountryFormBean getCountryFormBean() {
         return new CountryFormBean();
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = GET)
     public String get() {
         return "addcountryform";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = POST)
     public ModelAndView processSubmit(@Valid CountryFormBean countryFormBean, Errors errors) {
         if (errors.hasErrors()) {
-            log.info("Addcountryform validation failed.");
+            LOG.info("Addcountryform validation failed.");
+
             return new ModelAndView("addcountryform");
-        } else {
-            Country country = new Country();
-            country.setName(countryFormBean.getName());
-
-            log.info("Adding new " + country + "");
-
-            countryService.saveCountry(country);
-            List<Country> countries = countryService.loadAllCountries();
-
-            ModelAndView mav = new ModelAndView("countrylistview");
-            mav.addObject("countryList", countries);
-
-            return mav;
         }
-    }
 
-    @Autowired
-    @Required
-    public void setCountryService(CountryService countryService) {
-        this.countryService = countryService;
-    }
+        Country country = new Country(
+                countryFormBean.getName()
+        );
 
+        LOG.info("Adding new " + country);
+
+        countryService.saveCountry(country);
+
+        List<Country> countries = countryService.loadAllCountries();
+
+        ModelAndView modelAndView = new ModelAndView("countrylistview");
+        modelAndView.addObject("countryList", countries);
+
+        return modelAndView;
+    }
 }

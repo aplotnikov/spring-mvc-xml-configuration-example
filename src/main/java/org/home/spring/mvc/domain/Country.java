@@ -1,31 +1,28 @@
 package org.home.spring.mvc.domain;
 
 public class Country {
-    private int id;
+    private final int id;
+    private final String name;
 
-    private String name;
+    public Country(String name) {
+        this(0, name);
+    }
+
+    public Country(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public String toString() {
-        return "Country{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return "Country { id=" + id + ", name='" + name + '\'' + '}';
     }
 }
