@@ -15,7 +15,7 @@
 <body>
 
 <h3><spring:message code="form.adduser.name"/></h3>
-<form:form commandName="userFormBean">
+<form:form commandName="userBean">
     <table>
         <tr>
             <!-- TODO: Try to use tag "spring:message" instead of direct message below-->

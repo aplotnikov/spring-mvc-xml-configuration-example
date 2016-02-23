@@ -6,21 +6,21 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.home.spring.mvc.domain.User.Builder.anUser;
-
 public class UserMapper implements RowMapper<User> {
     @Override
     public User mapRow(ResultSet resultSet, int rowIndex) throws SQLException {
-        return anUser()
-                .withId(
-                        resultSet.getInt("id")
-                )
-                .withFirstName(
-                        resultSet.getString("firstname")
-                )
-                .withLastName(
-                        resultSet.getString("lastname")
-                )
-                .create();
+        User user = new User();
+
+        user.setId(
+                resultSet.getInt("id")
+        );
+        user.setFirstName(
+                resultSet.getString("firstname")
+        );
+        user.setLastName(
+                resultSet.getString("lastname")
+        );
+
+        return user;
     }
 }

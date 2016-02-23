@@ -3,20 +3,19 @@ package org.home.spring.mvc.mvc;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.home.spring.mvc.domain.User;
-import org.home.spring.mvc.mvc.form.bean.UserFormBean;
 import org.home.spring.mvc.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.List;
 
-import static org.home.spring.mvc.domain.User.Builder.anUser;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @RequestMapping("/adduser.form")
@@ -30,28 +29,23 @@ public class UserFormController {
         this.userService = userService;
     }
 
-    @ModelAttribute("userFormBean")
-    public UserFormBean getUserFormBean() {
-        return new UserFormBean();
+    @ModelAttribute("userBean")
+    public User anUserBean() {
+        return new User();
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = GET)
     public String get() {
         return "adduserform";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView processSubmit(@Valid UserFormBean userFormBean, Errors errors) {
+    @RequestMapping(method = POST)
+    public ModelAndView processSubmit(@Valid User user, Errors errors) {
         if (errors.hasErrors()) {
             LOG.info("Adduserform validation failed.");
 
             return new ModelAndView("adduserform");
         }
-
-        User user = anUser()
-                .withFirstName(userFormBean.getFirstName())
-                .withLastName(userFormBean.getLastName())
-                .create();
 
         LOG.info("Adding new " + user);
 
