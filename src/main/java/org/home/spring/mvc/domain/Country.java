@@ -1,24 +1,31 @@
 package org.home.spring.mvc.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Country {
-    private final int id;
-    private final String name;
+    private int id;
+    @NotNull
+    @Size(min = 2, max = 30)
+    private String name;
 
-    public Country(String name) {
-        this(0, name);
-    }
-
-    public Country(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public Country() {
     }
 
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

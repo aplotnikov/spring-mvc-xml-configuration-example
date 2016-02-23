@@ -3,7 +3,6 @@ package org.home.spring.mvc.mvc;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.home.spring.mvc.domain.Country;
-import org.home.spring.mvc.mvc.form.bean.CountryFormBean;
 import org.home.spring.mvc.service.CountryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -30,9 +29,9 @@ public class CountryFromController {
         this.countryService = countryService;
     }
 
-    @ModelAttribute("countryFormBean")
-    public CountryFormBean getCountryFormBean() {
-        return new CountryFormBean();
+    @ModelAttribute("countryBean")
+    public Country aCountryBean() {
+        return new Country();
     }
 
     @RequestMapping(method = GET)
@@ -41,16 +40,12 @@ public class CountryFromController {
     }
 
     @RequestMapping(method = POST)
-    public ModelAndView processSubmit(@Valid CountryFormBean countryFormBean, Errors errors) {
+    public ModelAndView processSubmit(@Valid Country country, Errors errors) {
         if (errors.hasErrors()) {
             LOG.info("Addcountryform validation failed.");
 
             return new ModelAndView("addcountryform");
         }
-
-        Country country = new Country(
-                countryFormBean.getName()
-        );
 
         LOG.info("Adding new " + country);
 

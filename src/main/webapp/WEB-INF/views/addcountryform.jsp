@@ -15,7 +15,7 @@
 <body>
 
 <h3><spring:message code="form.addcountry.name"/></h3>
-<form:form commandName="countryFormBean">
+<form:form commandName="countryBean">
     <table>
         <tr>
             <td><spring:message code="form.table.countrylist.col.name"/></td>
