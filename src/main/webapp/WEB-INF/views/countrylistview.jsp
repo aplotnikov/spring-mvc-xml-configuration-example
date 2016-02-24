@@ -10,15 +10,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title><spring:message code="form.countrylist.name"/></title>
+    <title><spring:message code="form.countryList.header"/></title>
 </head>
 <body>
 
-<h3><spring:message code="form.table.countrylist.title"/></h3>
+<h3><spring:message code="form.countryList.table.title"/></h3>
 <table border="1">
     <tr>
-        <th><spring:message code="form.table.countrylist.col.id"/></th>
-        <th><spring:message code="form.table.countrylist.col.name"/></th>
+        <th><spring:message code="form.countryList.table.column.id.name"/></th>
+        <th><spring:message code="form.countryList.table.column.name.name"/></th>
     </tr>
     <c:forEach var="x" items="${countryList}">
         <tr>
@@ -30,7 +30,7 @@
 
 <hr/>
 
-<a href="http://localhost:8080/mvc/addcountry.form"><spring:message code="form.addcountry.name"/></a>
+<a href="http://localhost:8080/mvc/addcountry.form"><spring:message code="form.addCountry.title"/></a>
 
 </body>
 </html>
