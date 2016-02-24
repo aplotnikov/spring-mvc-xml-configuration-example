@@ -9,16 +9,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title><spring:message code="form.userlist.name"/></title>
+    <title><spring:message code="form.userList.title"/></title>
 </head>
 <body>
 
-<h3><spring:message code="form.table.userlist.title"/></h3>
+<h3><spring:message code="form.userList.table.title"/></h3>
 <table border="1">
     <tr>
-        <th><spring:message code="form.table.userlist.col.id"/></th>
-        <th><spring:message code="form.table.userlist.col.firstname"/></th>
-        <th><spring:message code="form.table.userlist.col.lastname"/></th>
+        <th><spring:message code="form.userList.table.column.id.name"/></th>
+        <th><spring:message code="form.userList.table.column.firstName.name"/></th>
+        <th><spring:message code="form.userList.table.column.lastName.name"/></th>
     </tr>
     <c:forEach var="x" items="${userList}">
         <tr>
