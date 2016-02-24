@@ -9,16 +9,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!-- TODO: Try to use tag "spring:message" instead of direct message below-->
-    <title>Country :: AddForm</title>
+    <title><spring:message code="form.addCountry.header"/></title>
 </head>
 <body>
 
-<h3><spring:message code="form.addcountry.name"/></h3>
+<h3><spring:message code="form.addCountry.title"/></h3>
 <form:form commandName="countryBean">
     <table>
         <tr>
-            <td><spring:message code="form.table.countrylist.col.name"/></td>
+            <td><spring:message code="form.addCountry.name"/></td>
             <td><form:input path="name"/></td>
         </tr>
         <tr>
@@ -27,7 +26,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Save Changes"/></td>
+            <td colspan="2"><input type="submit" value="<spring:message code="form.addCountry.saveChanges"/>"/></td>
         </tr>
     </table>
 </form:form>
