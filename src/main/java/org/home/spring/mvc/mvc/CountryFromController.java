@@ -40,7 +40,7 @@ public class CountryFromController {
     }
 
     @RequestMapping(method = POST)
-    public ModelAndView processSubmit(@Valid Country country, Errors errors) {
+    public ModelAndView processSubmit(@ModelAttribute("countryBean") @Valid Country country, Errors errors) {
         if (errors.hasErrors()) {
             LOG.info("Addcountryform validation failed.");
 
